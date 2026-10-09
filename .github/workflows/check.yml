@@ -1,4 +1,4 @@
-name: version-checker
+name: check
 
 on:
   schedule:
@@ -9,20 +9,28 @@ permissions:
   contents: write
 
 concurrency:
-  group: version-checker
+  group: check
   cancel-in-progress: false
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      - name: Download version-checker
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo "$GITHUB_REPOSITORY" --pattern version-checker_linux_amd64 --output version-checker
+          chmod +x version-checker
+          ./version-checker -version
 
       - name: Check versions
-        run: bash check.sh
+        run: ./version-checker
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 

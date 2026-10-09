@@ -1,0 +1,81 @@
+defaults:
+  pattern: '^v?[0-9]+(\.[0-9]+)+$'
+
+tools:
+  - name: kubernetes
+    homepage: https://kubernetes.io
+    source:
+      type: github-release
+      repo: kubernetes/kubernetes
+
+  - name: coredns
+    homepage: https://coredns.io
+    source:
+      type: github-release
+      repo: coredns/coredns
+
+  - name: keepalived
+    homepage: https://www.keepalived.org
+    source:
+      type: github-tag
+      repo: acassen/keepalived
+
+  - name: containerd
+    homepage: https://containerd.io
+    source:
+      type: github-release
+      repo: containerd/containerd
+
+  - name: cilium
+    homepage: https://cilium.io
+    source:
+      type: github-release
+      repo: cilium/cilium
+
+  - name: gateway-api
+    display_name: Gateway API
+    homepage: https://gateway-api.sigs.k8s.io
+    source:
+      type: github-release
+      repo: kubernetes-sigs/gateway-api
+
+  - name: prometheus
+    homepage: https://prometheus.io
+    source:
+      type: github-release
+      repo: prometheus/prometheus
+
+  - name: harbor
+    homepage: https://goharbor.io
+    source:
+      type: github-release
+      repo: goharbor/harbor
+
+  - name: argocd
+    display_name: Argo CD
+    homepage: https://argo-cd.readthedocs.io
+    source:
+      type: github-release
+      repo: argoproj/argo-cd
+
+  - name: docker
+    homepage: https://docs.docker.com/engine/release-notes/
+    source:
+      type: github-release
+      repo: moby/moby
+      pattern: '^(docker-)?v[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: haproxy
+    homepage: https://www.haproxy.org
+    source:
+      type: webpage
+      url: https://www.haproxy.org/
+      pattern: 'haproxy-([0-9]+\.[0-9]+\.[0-9]+)\.tar\.gz'
+
+  - name: proxmox
+    display_name: Proxmox VE
+    homepage: https://www.proxmox.com
+    source:
+      type: webpage
+      url: https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso
+      pattern: 'proxmox-ve_([0-9]+\.[0-9]+(?:-[0-9]+)?)\.iso'

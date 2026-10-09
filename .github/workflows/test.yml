@@ -1,0 +1,23 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+    paths: ["**.go", "go.mod", "go.sum", "tools.yaml"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - run: go vet ./...
+      - run: go test ./...
+      - run: go run ./cmd/version-checker -dry-run -state /tmp/state.json -verify-delay 0s
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
