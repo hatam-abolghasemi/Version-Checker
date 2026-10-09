@@ -1,0 +1,21 @@
+{
+  "airflow": "3.3.2",
+  "argocd": "3.5.4",
+  "cilium": "1.20.2",
+  "clickhouse": "26.9.13.15-stable",
+  "containerd": "2.4.1",
+  "coredns": "1.14.7",
+  "docker": "29.9.0",
+  "gateway-api": "1.6.3",
+  "haproxy": "3.4.6",
+  "harbor": "2.15.4",
+  "hnc": "1.1.0",
+  "kafka": "4.3.1",
+  "keepalived": "2.4.3",
+  "kubernetes": "1.37.1",
+  "longhorn": "1.13.0",
+  "prometheus": "3.15.0",
+  "proxmox": "9.2-1",
+  "superset": "6.1.0",
+  "zookeeper": "3.9.6"
+}
