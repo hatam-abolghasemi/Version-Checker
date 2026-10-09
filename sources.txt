@@ -1,0 +1,20 @@
+# name          type            target                                   [regex]
+kubernetes      github-release  kubernetes/kubernetes
+coredns         github-release  coredns/coredns
+keepalived      github-tag      acassen/keepalived
+containerd      github-release  containerd/containerd
+longhorn        github-release  longhorn/longhorn
+cilium          github-release  cilium/cilium
+gateway-api     github-release  kubernetes-sigs/gateway-api
+hnc             github-release  kubernetes-sigs/hierarchical-namespaces
+prometheus      github-release  prometheus/prometheus
+harbor          github-release  goharbor/harbor
+argocd          github-release  argoproj/argo-cd
+docker          github-release  moby/moby                                ^(docker-)?v[0-9]+\.[0-9]+\.[0-9]+$
+zookeeper       github-tag      apache/zookeeper                         ^release-[0-9]+\.[0-9]+\.[0-9]+$
+kafka           github-tag      apache/kafka
+clickhouse      github-tag      ClickHouse/ClickHouse                    ^v[0-9.]+-stable$
+superset        github-tag      apache/superset                          ^[0-9]{1,2}\.[0-9]+\.[0-9]+$
+airflow         github-tag      apache/airflow
+haproxy         url             https://www.haproxy.org/                 haproxy-\K[0-9]+\.[0-9]+\.[0-9]+(?=\.tar\.gz)
+proxmox         url             https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso   proxmox-ve_\K[0-9]+\.[0-9]+(-[0-9]+)?(?=\.iso)
