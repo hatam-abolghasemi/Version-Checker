@@ -9,8 +9,9 @@
     "url": "https://github.com/cilium/cilium/releases/tag/v1.20.2"
   },
   "containerd": {
-    "version": "2.4.1",
-    "url": "https://github.com/containerd/containerd/releases/tag/v2.4.1"
+    "version": "2.4.2",
+    "url": "https://github.com/containerd/containerd/releases/tag/v2.4.2",
+    "updated_at": "2026-10-13T22:58:38Z"
   },
   "coredns": {
     "version": "1.14.7",
