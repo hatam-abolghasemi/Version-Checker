@@ -5,8 +5,9 @@
     "updated_at": "2026-10-12T17:40:30Z"
   },
   "cilium": {
-    "version": "1.20.2",
-    "url": "https://github.com/cilium/cilium/releases/tag/v1.20.2"
+    "version": "1.20.3",
+    "url": "https://github.com/cilium/cilium/releases/tag/v1.20.3",
+    "updated_at": "2026-10-15T16:47:08Z"
   },
   "containerd": {
     "version": "2.4.2",
