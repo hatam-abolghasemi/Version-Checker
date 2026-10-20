@@ -19,9 +19,9 @@
     "url": "https://github.com/coredns/coredns/releases/tag/v1.14.7"
   },
   "docker": {
-    "version": "29.9.1",
-    "url": "https://github.com/moby/moby/releases/tag/docker-v29.9.1",
-    "updated_at": "2026-10-14T20:53:15Z"
+    "version": "29.9.2",
+    "url": "https://github.com/moby/moby/releases/tag/docker-v29.9.2",
+    "updated_at": "2026-10-20T23:23:48Z"
   },
   "gateway-api": {
     "version": "1.6.3",
