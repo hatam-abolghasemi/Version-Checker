@@ -15,8 +15,9 @@
     "updated_at": "2026-10-13T22:58:38Z"
   },
   "coredns": {
-    "version": "1.14.7",
-    "url": "https://github.com/coredns/coredns/releases/tag/v1.14.7"
+    "version": "1.15.0",
+    "url": "https://github.com/coredns/coredns/releases/tag/v1.15.0",
+    "updated_at": "2026-10-21T06:37:53Z"
   },
   "docker": {
     "version": "29.9.2",
