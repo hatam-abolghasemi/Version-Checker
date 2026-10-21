@@ -46,8 +46,9 @@
     "url": "https://github.com/kubernetes/kubernetes/releases/tag/v1.37.1"
   },
   "prometheus": {
-    "version": "3.15.0",
-    "url": "https://github.com/prometheus/prometheus/releases/tag/v3.15.0"
+    "version": "3.15.1",
+    "url": "https://github.com/prometheus/prometheus/releases/tag/v3.15.1",
+    "updated_at": "2026-10-21T17:26:39Z"
   },
   "proxmox": {
     "version": "9.2-1",
