@@ -42,8 +42,9 @@
     "url": "https://github.com/acassen/keepalived/releases/tag/v2.4.3"
   },
   "kubernetes": {
-    "version": "1.37.1",
-    "url": "https://github.com/kubernetes/kubernetes/releases/tag/v1.37.1"
+    "version": "1.37.2",
+    "url": "https://github.com/kubernetes/kubernetes/releases/tag/v1.37.2",
+    "updated_at": "2026-10-28T05:28:25Z"
   },
   "prometheus": {
     "version": "3.15.1",
