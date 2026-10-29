@@ -25,8 +25,9 @@
     "updated_at": "2026-10-20T23:23:48Z"
   },
   "gateway-api": {
-    "version": "1.6.3",
-    "url": "https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.6.3"
+    "version": "1.7.0",
+    "url": "https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.7.0",
+    "updated_at": "2026-10-29T19:43:50Z"
   },
   "haproxy": {
     "version": "3.4.7",
