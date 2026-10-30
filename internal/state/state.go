@@ -14,6 +14,8 @@ type Entry struct {
 	URL          string `json:"url,omitempty"`
 	UpdatedAt    string `json:"updated_at,omitempty"`
 	FailingSince string `json:"failing_since,omitempty"`
+	// Failures counts consecutive failed fetches until an alert goes out.
+	Failures int `json:"failures,omitempty"`
 }
 
 func (e *Entry) UnmarshalJSON(data []byte) error {

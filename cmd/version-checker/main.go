@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"os"
 	"os/signal"
 	"time"
@@ -33,6 +34,7 @@ func run() error {
 		dryRun      = flag.Bool("dry-run", os.Getenv("DRY_RUN") == "1", "print messages instead of sending them")
 		verifyDelay = flag.Duration("verify-delay", 20*time.Second, "wait before re-fetching a new version to confirm it")
 		parallelism = flag.Int("parallelism", 6, "number of sources fetched at once")
+		failAfter   = flag.Int("fail-threshold", 3, "consecutive failed runs before a source is reported as failing")
 		timeout     = flag.Duration("timeout", 4*time.Minute, "overall run timeout")
 		showVersion = flag.Bool("version", false, "print version and exit")
 	)
@@ -55,6 +57,8 @@ func run() error {
 		return err
 	}
 
+	httpClient := &http.Client{Timeout: 30 * time.Second}
+
 	renderer, err := notify.NewRenderer(cfg.Telegram.Template)
 	if err != nil {
 		return err
@@ -67,10 +71,13 @@ func run() error {
 		if token == "" || chatID == "" {
 			return errors.New("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are required (or use -dry-run)")
 		}
-		notifier = notify.NewTelegram(token, chatID, renderer)
+		tg := notify.NewTelegram(token, chatID, renderer)
+		tg.HTTP = httpClient
+		notifier = tg
 	}
 
 	client := source.NewClient("version-checker/"+version, os.Getenv("GITHUB_TOKEN"))
+	client.HTTP = httpClient
 	keep := map[string]bool{}
 	targets := make([]checker.Target, 0, len(cfg.Tools))
 	for _, t := range cfg.Tools {
@@ -89,15 +96,22 @@ func run() error {
 	defer cancelTimeout()
 
 	c := &checker.Checker{
-		Targets:     targets,
-		Notifier:    notifier,
-		VerifyDelay: *verifyDelay,
-		Parallelism: *parallelism,
-		Now:         time.Now,
-		Log:         log,
+		Targets:       targets,
+		Notifier:      notifier,
+		VerifyDelay:   *verifyDelay,
+		Parallelism:   *parallelism,
+		FailThreshold: *failAfter,
+		Now:           time.Now,
+		Log:           log,
 	}
-	if err := c.Run(ctx, st); err != nil {
-		return fmt.Errorf("%w (state not saved, will retry next run)", err)
+	runErr := c.Run(ctx, st)
+	// Save even when sending failed: state only records what was delivered,
+	// and anything unsent is retried next run.
+	if err := st.Save(*statePath); err != nil {
+		return errors.Join(runErr, err)
 	}
-	return st.Save(*statePath)
+	if runErr != nil {
+		return fmt.Errorf("%w (unsent updates will be retried next run)", runErr)
+	}
+	return nil
 }

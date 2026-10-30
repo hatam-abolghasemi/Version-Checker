@@ -145,3 +145,86 @@ func TestFailureBeforeSeed(t *testing.T) {
 		t.Fatalf("state=%+v reports=%+v", st["a"], n.reports)
 	}
 }
+
+func TestFailThreshold(t *testing.T) {
+	n := &fakeNotifier{}
+	st := state.State{"a": {Version: "1.0.0"}}
+	fail := &fakeSource{results: []source.Release{{}}, errs: []error{errors.New("timeout")}}
+	c := newChecker(n, map[string]*fakeSource{"a": fail})
+	c.FailThreshold = 3
+
+	c.Run(context.Background(), st)
+	c.Run(context.Background(), st)
+	if len(n.reports) != 0 || st["a"].Failures != 2 {
+		t.Fatalf("alerted too early: reports=%+v state=%+v", n.reports, st["a"])
+	}
+	c.Run(context.Background(), st)
+	c.Run(context.Background(), st)
+	if len(n.reports) != 1 || len(n.reports[0].Failures) != 1 || st["a"].FailingSince == "" {
+		t.Fatalf("reports=%+v state=%+v", n.reports, st["a"])
+	}
+
+	// A blip that recovers before the threshold resets silently.
+	st["b"] = &state.Entry{Version: "1.0.0", Failures: 2}
+	c.Targets = []Target{{Tool: config.Tool{Name: "b"}, Source: &fakeSource{results: []source.Release{rel("1.0.0")}}}}
+	c.Run(context.Background(), st)
+	if len(n.reports) != 1 || st["b"].Failures != 0 {
+		t.Fatalf("reports=%+v state=%+v", n.reports, st["b"])
+	}
+}
+
+func TestRecoveryResentIfAlertFails(t *testing.T) {
+	n := &fakeNotifier{err: errors.New("telegram down")}
+	st := state.State{"a": {Version: "1.0.0", FailingSince: "2026-10-01T00:00:00Z"}}
+	c := newChecker(n, map[string]*fakeSource{"a": {results: []source.Release{rel("1.0.0")}}})
+
+	if err := c.Run(context.Background(), st); err != nil {
+		t.Fatal(err)
+	}
+	if st["a"].FailingSince == "" {
+		t.Fatal("FailingSince cleared although the recovery message was not sent")
+	}
+	n.err = nil
+	c.Run(context.Background(), st)
+	if len(n.reports) != 1 || len(n.reports[0].Recovered) != 1 || st["a"].FailingSince != "" {
+		t.Fatalf("reports=%+v state=%+v", n.reports, st["a"])
+	}
+}
+
+// splittingNotifier sends one update per message and fails on the Nth send.
+type splittingNotifier struct {
+	fakeNotifier
+	failAt int
+	sends  int
+}
+
+func (s *splittingNotifier) Split(r notify.Report) ([]notify.Report, error) {
+	var out []notify.Report
+	for _, u := range r.Updates {
+		out = append(out, notify.Report{Updates: []notify.Update{u}})
+	}
+	return out, nil
+}
+
+func (s *splittingNotifier) Notify(ctx context.Context, r notify.Report) error {
+	s.sends++
+	if s.sends == s.failAt {
+		return errors.New("boom")
+	}
+	return s.fakeNotifier.Notify(ctx, r)
+}
+
+func TestPartialSendRecordsProgress(t *testing.T) {
+	n := &splittingNotifier{failAt: 2}
+	st := state.State{"a": {Version: "1.0.0"}, "b": {Version: "1.0.0"}}
+	c := newChecker(n, map[string]*fakeSource{
+		"a": {results: []source.Release{rel("1.1.0")}},
+		"b": {results: []source.Release{rel("1.1.0")}},
+	})
+	if err := c.Run(context.Background(), st); err == nil {
+		t.Fatal("expected error")
+	}
+	if st["a"].Version != "1.1.0" || st["b"].Version != "1.0.0" {
+		t.Fatalf("a=%+v b=%+v", st["a"], st["b"])
+	}
+}
