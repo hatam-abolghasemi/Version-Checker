@@ -4,6 +4,21 @@
     "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.6",
     "updated_at": "2026-10-20T20:38:26Z"
   },
+  "beats": {
+    "version": "9.5.5",
+    "url": "https://github.com/elastic/beats/releases/tag/v9.5.5",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "ceph": {
+    "version": "20.2.4",
+    "url": "https://github.com/ceph/ceph/releases/tag/v20.2.4",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "cert-manager": {
+    "version": "1.21.3",
+    "url": "https://github.com/cert-manager/cert-manager/releases/tag/v1.21.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
   "cilium": {
     "version": "1.20.4",
     "url": "https://github.com/cilium/cilium/releases/tag/v1.20.4",
@@ -24,10 +39,55 @@
     "url": "https://github.com/moby/moby/releases/tag/docker-v29.9.2",
     "updated_at": "2026-10-20T23:23:48Z"
   },
+  "dotnet": {
+    "version": "10.0.14",
+    "url": "https://github.com/dotnet/runtime/releases/tag/v10.0.14",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "elasticsearch": {
+    "version": "9.5.5",
+    "url": "https://github.com/elastic/elasticsearch/releases/tag/v9.5.5",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "envoy-gateway": {
+    "version": "1.9.3",
+    "url": "https://github.com/envoyproxy/gateway/releases/tag/v1.9.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "etcd": {
+    "version": "3.7.3",
+    "url": "https://github.com/etcd-io/etcd/releases/tag/v3.7.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "fluent-bit": {
+    "version": "5.1.5",
+    "url": "https://github.com/fluent/fluent-bit/releases/tag/v5.1.5",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
   "gateway-api": {
     "version": "1.7.0",
     "url": "https://github.com/kubernetes-sigs/gateway-api/releases/tag/v1.7.0",
     "updated_at": "2026-10-29T19:43:50Z"
+  },
+  "gitlab": {
+    "version": "19.5.1",
+    "url": "https://github.com/gitlabhq/gitlabhq/releases/tag/v19.5.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "gitlab-runner": {
+    "version": "19.3.1",
+    "url": "https://github.com/gitlabhq/gitlab-runner/releases/tag/v19.3.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "go": {
+    "version": "1.27.3",
+    "url": "https://github.com/golang/go/releases/tag/go1.27.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "grafana": {
+    "version": "13.3.0",
+    "url": "https://github.com/grafana/grafana/releases/tag/v13.3.0",
+    "updated_at": "2026-10-30T13:18:12Z"
   },
   "haproxy": {
     "version": "3.4.7",
@@ -38,14 +98,84 @@
     "version": "2.15.4",
     "url": "https://github.com/goharbor/harbor/releases/tag/v2.15.4"
   },
+  "helm": {
+    "version": "4.3.1",
+    "url": "https://github.com/helm/helm/releases/tag/v4.3.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "istio": {
+    "version": "1.31.3",
+    "url": "https://github.com/istio/istio/releases/tag/1.31.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
   "keepalived": {
     "version": "2.4.3",
     "url": "https://github.com/acassen/keepalived/releases/tag/v2.4.3"
+  },
+  "keycloak": {
+    "version": "26.8.1",
+    "url": "https://github.com/keycloak/keycloak/releases/tag/26.8.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "kibana": {
+    "version": "9.5.5",
+    "url": "https://github.com/elastic/kibana/releases/tag/v9.5.5",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "kube-state-metrics": {
+    "version": "2.20.0",
+    "url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.20.0",
+    "updated_at": "2026-10-30T13:18:12Z"
   },
   "kubernetes": {
     "version": "1.37.2",
     "url": "https://github.com/kubernetes/kubernetes/releases/tag/v1.37.2",
     "updated_at": "2026-10-28T05:28:25Z"
+  },
+  "kubespray": {
+    "version": "2.32.0",
+    "url": "https://github.com/kubernetes-sigs/kubespray/releases/tag/v2.32.0",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "kyverno": {
+    "version": "1.19.2",
+    "url": "https://github.com/kyverno/kyverno/releases/tag/v1.19.2",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "metrics-server": {
+    "version": "0.9.1",
+    "url": "https://github.com/kubernetes-sigs/metrics-server/releases/tag/v0.9.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "mimir": {
+    "version": "3.2.3",
+    "url": "https://github.com/grafana/mimir/releases/tag/mimir-3.2.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "nexus": {
+    "version": "3.97.2-02",
+    "url": "https://github.com/sonatype/nexus-public/releases/tag/release-3.97.2-02",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "node-exporter": {
+    "version": "1.12.1",
+    "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.12.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "nodejs": {
+    "version": "26.13.0",
+    "url": "https://github.com/nodejs/node/releases/tag/v26.13.0",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "openresty": {
+    "version": "1.31.8.1",
+    "url": "https://github.com/openresty/openresty/releases/tag/v1.31.8.1",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "php": {
+    "version": "8.5.12",
+    "url": "https://github.com/php/php-src/releases/tag/php-8.5.12",
+    "updated_at": "2026-10-30T13:18:12Z"
   },
   "prometheus": {
     "version": "3.15.1",
@@ -55,5 +185,25 @@
   "proxmox": {
     "version": "9.2-1",
     "url": "https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso#:~:text=9.2%2D1"
+  },
+  "rabbitmq": {
+    "version": "4.4.0",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.4.0",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "redis": {
+    "version": "8.10.3",
+    "url": "https://github.com/redis/redis/releases/tag/8.10.3",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "rocketchat": {
+    "version": "8.9.0",
+    "url": "https://github.com/RocketChat/Rocket.Chat/releases/tag/8.9.0",
+    "updated_at": "2026-10-30T13:18:12Z"
+  },
+  "sentry": {
+    "version": "26.10.1",
+    "url": "https://github.com/getsentry/self-hosted/releases/tag/26.10.1",
+    "updated_at": "2026-10-30T13:18:12Z"
   }
 }
