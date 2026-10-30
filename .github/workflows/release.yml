@@ -1,17 +1,53 @@
 name: release
 
+# Push a tag vX.Y.Z (annotated, its message is the title after the dash):
+#   git tag -a v1.0.1 -m "short description" && git push origin v1.0.1
+# Or rerun for an existing tag: Actions -> release -> Run workflow.
 on:
   push:
-    tags: ["v*"]
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag, e.g. v1.0.1"
+        required: true
+      title:
+        description: "Title after the dash (default: the tag's message)"
+        required: false
 
 permissions:
   contents: write
+
+concurrency:
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: ubuntu-24.04
     steps:
+      - name: Check version
+        id: v
+        env:
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::$TAG is not vX.Y.Z"; exit 1; }
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.v.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Tag, changelog and check workflow agree
+        env:
+          TAG: ${{ steps.v.outputs.tag }}
+          V: ${{ steps.v.outputs.version }}
+        run: |
+          grep -q "^## ${V}\$" CHANGELOG.md || { echo "::error::CHANGELOG.md has no '## ${V}' section"; exit 1; }
+          pinned=$(sed -n 's/^ *VERSION_CHECKER_VERSION: *//p' .github/workflows/check.yml)
+          [ "$pinned" = "$TAG" ] || { echo "::error::check.yml runs $pinned, tag is $TAG"; exit 1; }
 
       - uses: actions/setup-go@v6
         with:
@@ -23,15 +59,66 @@ jobs:
           go test ./...
 
       - name: Build
+        env:
+          TAG: ${{ steps.v.outputs.tag }}
         run: |
           for arch in amd64 arm64; do
             CGO_ENABLED=0 GOOS=linux GOARCH="$arch" go build -trimpath \
-              -ldflags "-s -w -X main.version=${GITHUB_REF_NAME}" \
+              -ldflags "-s -w -X main.version=${TAG}" \
               -o "dist/version-checker_linux_${arch}" ./cmd/version-checker
           done
           (cd dist && sha256sum * > checksums.txt)
 
-      - name: Publish release
+      - name: Title and notes
+        env:
+          TAG: ${{ steps.v.outputs.tag }}
+          V: ${{ steps.v.outputs.version }}
+          TITLE: ${{ github.event.inputs.title }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          git fetch --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+          if [ -z "$TITLE" ]; then
+            TITLE=$(git tag -l --format='%(contents:subject)' "$TAG")
+            case "$TITLE" in "Version Checker"*|"$TAG"|"$V") TITLE="" ;; esac
+          fi
+          if [ -n "$TITLE" ]; then echo "TITLE=$TAG — $TITLE" >> "$GITHUB_ENV"; else echo "TITLE=$TAG" >> "$GITHUB_ENV"; fi
+          python3 - <<'PY' > notes.md
+          import os, re
+          v, tag, repo = os.environ["V"], os.environ["TAG"], os.environ["REPO_URL"]
+          text = open("CHANGELOG.md").read()
+          sec = text.split(f"\n## {v}\n", 1)[1].split("\n## ", 1)[0].strip("\n")
+          out, cur = [], ""
+          for line in sec.split("\n"):
+              if not line.strip():
+                  if cur: out.append(cur); cur = ""
+                  out.append("")
+              elif line.startswith("#") or re.match(r"^\s*- ", line):
+                  if cur: out.append(cur)
+                  cur = line.rstrip()
+              else:
+                  cur = f"{cur} {line.strip()}" if cur else line.rstrip()
+          if cur: out.append(cur)
+          body = re.sub(r"\n{3,}", "\n\n", "\n".join(out)).strip()
+          body = body.replace("](docs/", f"]({repo}/blob/{tag}/docs/")
+          fence = "`" * 3
+          print(body)
+          print()
+          print("Binaries: `version-checker_linux_amd64`, `version-checker_linux_arm64` and `checksums.txt` below.")
+          print(f"The `check` workflow runs the release named in `VERSION_CHECKER_VERSION`:")
+          print()
+          print(fence + "yaml")
+          print(f"VERSION_CHECKER_VERSION: {tag}")
+          print(fence)
+          PY
+
+      - name: Create or update the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
+          TAG: ${{ steps.v.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+            gh release edit "$TAG" --title "$TITLE" --notes-file notes.md --latest
+          else
+            gh release create "$TAG" dist/* --title "$TITLE" --notes-file notes.md --latest --verify-tag
+          fi
