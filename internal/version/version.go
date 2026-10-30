@@ -21,8 +21,14 @@ func Compare(a, b string) int {
 		case as == "" && bs == "":
 			return 0
 		case as == "":
+			if isPrerelease(b) {
+				return 1
+			}
 			return -1
 		case bs == "":
+			if isPrerelease(a) {
+				return -1
+			}
 			return 1
 		}
 		var c int
@@ -48,6 +54,14 @@ func segment(s string) (seg, rest string, numeric bool) {
 		i++
 	}
 	return s[:i], s[i:], numeric
+}
+
+// isPrerelease reports whether the remainder of a version after a shared
+// prefix marks a pre-release ("-rc1", ".beta", "a1") rather than a further
+// release component ("-1", ".2"). So 1.10.0-rc1 < 1.10.0 < 1.10.0-1.
+func isPrerelease(rest string) bool {
+	rest = strings.TrimLeft(rest, "-._~")
+	return rest != "" && !isDigit(rest[0]) && rest[0] != '+'
 }
 
 func isDigit(b byte) bool {
