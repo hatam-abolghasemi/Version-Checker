@@ -2,11 +2,16 @@ name: check
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+env:
+  # Release the binary runs from. Bump it after tagging a new release, so a
+  # tag never reaches the schedule untested.
+  VERSION_CHECKER_VERSION: v1.0.1
 
 concurrency:
   group: check
@@ -23,7 +28,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download --repo "$GITHUB_REPOSITORY" --pattern version-checker_linux_amd64 --output version-checker
+          gh release download "$VERSION_CHECKER_VERSION" --repo "$GITHUB_REPOSITORY" \
+            --pattern version-checker_linux_amd64 --pattern checksums.txt
+          grep ' version-checker_linux_amd64$' checksums.txt | sha256sum -c -
+          mv version-checker_linux_amd64 version-checker
           chmod +x version-checker
           ./version-checker -version
 
@@ -34,7 +42,10 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
+      # Runs even if the check step failed: state only records what was
+      # delivered, so a partial send must still be saved.
       - name: Commit state
+        if: ${{ !cancelled() }}
         run: |
           git add state.json
           if ! git diff --cached --quiet; then
