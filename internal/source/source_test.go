@@ -2,6 +2,7 @@ package source
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -41,6 +42,49 @@ func TestGitHubRelease(t *testing.T) {
 	}
 	if got.Version != "1.37.1" || got.URL != "u-new" || got.Tag != "v1.37.1" {
 		t.Fatalf("got %+v", got)
+	}
+}
+
+func TestGitHubReleaseGraphQL(t *testing.T) {
+	c := newTestClient(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost || r.URL.Path != "/graphql" || r.Header.Get("Authorization") != "Bearer tok" {
+			http.Error(w, "unexpected "+r.Method+" "+r.URL.Path, 400)
+			return
+		}
+		var body struct {
+			Variables map[string]any `json:"variables"`
+		}
+		json.NewDecoder(r.Body).Decode(&body)
+		if body.Variables["owner"] != "k" || body.Variables["name"] != "k" {
+			http.Error(w, "bad variables", 400)
+			return
+		}
+		fmt.Fprint(w, `{"data":{"repository":{"releases":{"nodes":[
+			{"tagName":"v1.38.0-rc.0","url":"u-rc","isPrerelease":true},
+			{"tagName":"v1.36.9","url":"u-old"},
+			{"tagName":"v1.37.1","url":"u-new"},
+			{"tagName":"v1.99.0","url":"u-draft","isDraft":true}
+		]}}}}`)
+	}))
+	c.GitHubToken = "tok"
+	src, _ := New(c, config.Source{Type: config.TypeGitHubRelease, Repo: "k/k", Pattern: config.DefaultPattern})
+	got, err := src.Latest(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Version != "1.37.1" || got.URL != "u-new" {
+		t.Fatalf("got %+v", got)
+	}
+}
+
+func TestGitHubReleaseGraphQLErrors(t *testing.T) {
+	c := newTestClient(t, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, `{"data":{"repository":null},"errors":[{"message":"Could not resolve to a Repository"}]}`)
+	}))
+	c.GitHubToken = "tok"
+	src, _ := New(c, config.Source{Type: config.TypeGitHubRelease, Repo: "no/pe", Pattern: config.DefaultPattern})
+	if _, err := src.Latest(context.Background()); err == nil || !strings.Contains(err.Error(), "Could not resolve") {
+		t.Fatalf("err=%v", err)
 	}
 }
 

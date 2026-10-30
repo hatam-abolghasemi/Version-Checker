@@ -59,8 +59,12 @@ func New(c *Client, sc config.Source) (Source, error) {
 	return nil, fmt.Errorf("unknown source type %q", sc.Type)
 }
 
-func (c *Client) get(ctx context.Context, url string, header http.Header) ([]byte, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+const maxBody = 32 << 20
+
+// open sends a request and returns the body of a 200 response, capped at
+// maxBody. The caller must close it.
+func (c *Client) open(ctx context.Context, method, url string, header http.Header, body io.Reader) (io.ReadCloser, error) {
+	req, err := http.NewRequestWithContext(ctx, method, url, body)
 	if err != nil {
 		return nil, err
 	}
@@ -72,15 +76,34 @@ func (c *Client) get(ctx context.Context, url string, header http.Header) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	body, err := io.ReadAll(io.LimitReader(resp.Body, 32<<20))
+	if resp.StatusCode != http.StatusOK {
+		io.Copy(io.Discard, io.LimitReader(resp.Body, 64<<10))
+		resp.Body.Close()
+		return nil, fmt.Errorf("%s %s: %s", method, url, resp.Status)
+	}
+	return struct {
+		io.Reader
+		io.Closer
+	}{io.LimitReader(resp.Body, maxBody), resp.Body}, nil
+}
+
+func (c *Client) get(ctx context.Context, url string, header http.Header) ([]byte, error) {
+	rc, err := c.open(ctx, http.MethodGet, url, header, nil)
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("GET %s: %s", url, resp.Status)
+	defer rc.Close()
+	return io.ReadAll(rc)
+}
+
+func (c *Client) githubHeader() http.Header {
+	h := http.Header{}
+	h.Set("Accept", "application/vnd.github+json")
+	h.Set("X-GitHub-Api-Version", "2022-11-28")
+	if c.GitHubToken != "" {
+		h.Set("Authorization", "Bearer "+c.GitHubToken)
 	}
-	return body, nil
+	return h
 }
 
 type candidate struct {

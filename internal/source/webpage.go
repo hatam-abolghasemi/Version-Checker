@@ -21,8 +21,9 @@ func (s *Webpage) Latest(ctx context.Context) (Release, error) {
 		return Release{}, err
 	}
 	var cands []candidate
-	for _, m := range s.pattern.FindAllStringSubmatch(string(body), -1) {
-		cands = append(cands, candidate{tag: m[1], url: highlight(s.url, m[1])})
+	for _, m := range s.pattern.FindAllSubmatch(body, -1) {
+		v := string(m[1])
+		cands = append(cands, candidate{tag: v, url: highlight(s.url, v)})
 	}
 	return pick(cands, matchAll)
 }
