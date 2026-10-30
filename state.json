@@ -93,7 +93,7 @@
     "version": "3.4.7",
     "url": "https://www.haproxy.org/#:~:text=3.4.7",
     "updated_at": "2026-10-14T17:27:31Z",
-    "failures": 1
+    "failures": 2
   },
   "harbor": {
     "version": "2.15.4",
@@ -149,9 +149,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "mimir": {
-    "version": "3.2.3",
-    "url": "https://github.com/grafana/mimir/releases/tag/mimir-3.2.3",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "3.2.4",
+    "url": "https://github.com/grafana/mimir/releases/tag/mimir-3.2.4",
+    "updated_at": "2026-10-30T22:40:05Z"
   },
   "nexus": {
     "version": "3.97.2-02",
