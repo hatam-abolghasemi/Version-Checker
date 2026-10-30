@@ -1,7 +1,7 @@
 # Version Checker
 
 Watches upstream projects for new stable releases and posts them to a Telegram channel.
-Runs on GitHub Actions every 5 minutes. No servers needed.
+Runs on GitHub Actions every 15 minutes. No servers needed.
 
 Each new version in a message links to where it was found: the GitHub release page
 (with its changelog), the tag page, or the source webpage with the version highlighted.
@@ -15,8 +15,12 @@ Each new version in a message links to where it was found: the GitHub release pa
 
 - New tools are recorded silently on their first run.
 - Downgrades are ignored.
-- If sending the update fails, state is not saved and the next run retries.
-- A source that starts failing is reported once, and again when it recovers.
+- If sending an update fails, its state is not advanced and the next run retries it.
+- A source is reported as failing after 3 failed runs in a row (`-fail-threshold`), once, and again when it recovers.
+  A one-off blip that recovers sooner stays silent.
+- A message over Telegram's 4096-character limit is split into several. Progress is saved after each one,
+  so a partial send never repeats what was already delivered.
+- Telegram 429 and 5xx responses are retried (honoring `retry_after`); other errors are not.
 - Tools removed from `tools.yaml` are dropped from `state.json` automatically.
 
 ## Configuration
@@ -61,7 +65,7 @@ Unknown fields are rejected, so typos fail fast.
 
 | Type             | How it fetches                                                       | Link in message            |
 |------------------|----------------------------------------------------------------------|----------------------------|
-| `github-release` | GitHub Releases API, skips drafts and prereleases                    | The release page           |
+| `github-release` | GitHub GraphQL API (REST without a token), skips drafts and prereleases | The release page        |
 | `github-tag`     | Git smart-HTTP ref list (no API quota used)                          | The tag page               |
 | `webpage`        | Downloads the page and takes capture group 1 of every pattern match | The page, version highlighted |
 
@@ -87,10 +91,13 @@ See `DefaultTemplate` in `internal/notify/notify.go` for the starting point.
 1. Create a Telegram bot with @BotFather and add it as an admin of your channel.
 2. Add repository secrets `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
    (`@channelname` for public channels, `-100…` for private ones).
-3. Push a tag to build a release: `git tag v1.0.0 && git push origin v1.0.0`.
+3. Release: add a `## X.Y.Z` section to `CHANGELOG.md`, set `VERSION_CHECKER_VERSION: vX.Y.Z` in
+   `.github/workflows/check.yml`, then push an annotated tag. Its message becomes the title after the dash:
+   `git tag -a vX.Y.Z -m "short description" && git push origin vX.Y.Z`.
 4. Run the `check` workflow once from the Actions tab.
 
-The `check` workflow downloads the binary from the latest release, so code changes take effect after the next tag.
+The `check` workflow runs the release named in `VERSION_CHECKER_VERSION` at the top of `.github/workflows/check.yml`
+and verifies its checksum. Code changes take effect once you tag a release *and* bump that value.
 Changes to `tools.yaml` take effect immediately.
 
 If the state commit fails with 403, set **Settings → Actions → General → Workflow permissions** to **Read and write**.
@@ -108,10 +115,12 @@ go run ./cmd/version-checker -dry-run
 | `-dry-run`      | `false`       | Print messages instead of sending (or `DRY_RUN=1`) |
 | `-verify-delay` | `20s`         | Wait before the confirming fetch             |
 | `-parallelism`  | `6`           | Sources fetched at once                      |
+| `-fail-threshold` | `3`         | Consecutive failed runs before a "Failing" alert |
 | `-timeout`      | `4m`          | Overall run timeout                          |
 | `-version`      |               | Print version and exit                       |
 
-Environment: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `GITHUB_TOKEN` (optional locally, raises the API rate limit).
+Environment: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `GITHUB_TOKEN` (optional locally; with it `github-release`
+uses GraphQL, which fetches a few KB instead of every changelog, and the rate limit is higher).
 
 ## Layout
 
@@ -133,3 +142,5 @@ internal/checker      fetch, compare, verify, notify, failure tracking
 ### Adding a notifier
 
 Implement `notify.Notifier` (`Notify(ctx, Report) error`) and wire it up in `cmd/version-checker/main.go`.
+If it has a message size limit, also implement `notify.Splitter` (`Split(Report) ([]Report, error)`);
+`Renderer.Split(rep, limit)` does the packing.
