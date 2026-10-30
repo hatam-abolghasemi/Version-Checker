@@ -79,3 +79,221 @@ tools:
       type: webpage
       url: https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso
       pattern: 'proxmox-ve_([0-9]+\.[0-9]+(?:-[0-9]+)?)\.iso'
+
+  # Cluster and stack
+  - name: kubespray
+    display_name: Kubespray
+    homepage: https://kubespray.io
+    source:
+      type: github-release
+      repo: kubernetes-sigs/kubespray
+
+  - name: elasticsearch
+    display_name: Elasticsearch
+    homepage: https://www.elastic.co/elasticsearch
+    source:
+      type: github-release
+      repo: elastic/elasticsearch
+
+  - name: kibana
+    display_name: Kibana
+    homepage: https://www.elastic.co/kibana
+    source:
+      type: github-release
+      repo: elastic/kibana
+
+  - name: beats
+    display_name: Beats (Filebeat)
+    homepage: https://www.elastic.co/beats
+    source:
+      type: github-release
+      repo: elastic/beats
+
+  - name: grafana
+    display_name: Grafana
+    homepage: https://grafana.com
+    source:
+      type: github-release
+      repo: grafana/grafana
+
+  - name: mimir
+    display_name: Mimir
+    homepage: https://grafana.com/oss/mimir
+    source:
+      type: github-release
+      repo: grafana/mimir
+      pattern: '^mimir-[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: fluent-bit
+    display_name: Fluent Bit
+    homepage: https://fluentbit.io
+    source:
+      type: github-release
+      repo: fluent/fluent-bit
+
+  - name: gitlab
+    display_name: GitLab
+    homepage: https://about.gitlab.com/releases/categories/releases/
+    source:
+      type: github-tag
+      repo: gitlabhq/gitlabhq
+      pattern: '^v[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: gitlab-runner
+    display_name: GitLab Runner
+    homepage: https://docs.gitlab.com/runner/
+    source:
+      type: github-tag
+      repo: gitlabhq/gitlab-runner
+      pattern: '^v[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: nexus
+    display_name: Nexus Repository
+    homepage: https://help.sonatype.com/en/release-notes.html
+    source:
+      type: github-tag
+      repo: sonatype/nexus-public
+      pattern: '^release-[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$'
+
+  - name: redis
+    display_name: Redis
+    homepage: https://redis.io
+    source:
+      type: github-release
+      repo: redis/redis
+
+  - name: keycloak
+    display_name: Keycloak
+    homepage: https://www.keycloak.org
+    source:
+      type: github-release
+      repo: keycloak/keycloak
+
+  - name: rabbitmq
+    display_name: RabbitMQ
+    homepage: https://www.rabbitmq.com
+    source:
+      type: github-release
+      repo: rabbitmq/rabbitmq-server
+
+  - name: ceph
+    display_name: Ceph
+    homepage: https://ceph.io
+    source:
+      type: github-tag
+      repo: ceph/ceph
+      pattern: '^v[0-9]+\.2\.[0-9]+$'
+
+  - name: rocketchat
+    display_name: Rocket.Chat
+    homepage: https://www.rocket.chat
+    source:
+      type: github-release
+      repo: RocketChat/Rocket.Chat
+
+  - name: envoy-gateway
+    display_name: Envoy Gateway
+    homepage: https://gateway.envoyproxy.io
+    source:
+      type: github-release
+      repo: envoyproxy/gateway
+
+  - name: sentry
+    display_name: Sentry (self-hosted)
+    homepage: https://develop.sentry.dev/self-hosted/
+    source:
+      type: github-release
+      repo: getsentry/self-hosted
+
+  - name: openresty
+    display_name: OpenResty
+    homepage: https://openresty.org
+    source:
+      type: github-tag
+      repo: openresty/openresty
+
+
+  # Kubernetes add-ons
+  - name: etcd
+    homepage: https://etcd.io
+    source:
+      type: github-release
+      repo: etcd-io/etcd
+
+  - name: helm
+    display_name: Helm
+    homepage: https://helm.sh
+    source:
+      type: github-release
+      repo: helm/helm
+
+  - name: metrics-server
+    homepage: https://github.com/kubernetes-sigs/metrics-server
+    source:
+      type: github-release
+      repo: kubernetes-sigs/metrics-server
+
+  - name: kube-state-metrics
+    homepage: https://github.com/kubernetes/kube-state-metrics
+    source:
+      type: github-release
+      repo: kubernetes/kube-state-metrics
+
+  - name: node-exporter
+    display_name: node_exporter
+    homepage: https://github.com/prometheus/node_exporter
+    source:
+      type: github-release
+      repo: prometheus/node_exporter
+
+  - name: cert-manager
+    homepage: https://cert-manager.io
+    source:
+      type: github-release
+      repo: cert-manager/cert-manager
+
+  - name: istio
+    display_name: Istio
+    homepage: https://istio.io
+    source:
+      type: github-release
+      repo: istio/istio
+
+  - name: kyverno
+    display_name: Kyverno
+    homepage: https://kyverno.io
+    source:
+      type: github-release
+      repo: kyverno/kyverno
+
+
+  # Language runtimes
+  - name: go
+    display_name: Go
+    homepage: https://go.dev/doc/devel/release
+    source:
+      type: github-tag
+      repo: golang/go
+      pattern: '^go[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: nodejs
+    display_name: Node.js
+    homepage: https://nodejs.org
+    source:
+      type: github-release
+      repo: nodejs/node
+
+  - name: php
+    display_name: PHP
+    homepage: https://www.php.net
+    source:
+      type: github-tag
+      repo: php/php-src
+      pattern: '^php-[0-9]+\.[0-9]+\.[0-9]+$'
+
+  - name: dotnet
+    display_name: .NET Runtime
+    homepage: https://dotnet.microsoft.com
+    source:
+      type: github-tag
+      repo: dotnet/runtime
