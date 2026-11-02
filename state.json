@@ -5,14 +5,14 @@
     "updated_at": "2026-10-20T20:38:26Z"
   },
   "beats": {
-    "version": "9.5.5",
-    "url": "https://github.com/elastic/beats/releases/tag/v9.5.5",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "9.5.6",
+    "url": "https://github.com/elastic/beats/releases/tag/v9.5.6",
+    "updated_at": "2026-11-02T19:08:43Z"
   },
   "ceph": {
-    "version": "20.2.4",
-    "url": "https://github.com/ceph/ceph/releases/tag/v20.2.4",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "20.2.5",
+    "url": "https://github.com/ceph/ceph/releases/tag/v20.2.5",
+    "updated_at": "2026-11-02T19:08:43Z"
   },
   "cert-manager": {
     "version": "1.21.3",
@@ -45,9 +45,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "elasticsearch": {
-    "version": "9.5.5",
-    "url": "https://github.com/elastic/elasticsearch/releases/tag/v9.5.5",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "9.5.6",
+    "url": "https://github.com/elastic/elasticsearch/releases/tag/v9.5.6",
+    "updated_at": "2026-11-02T19:08:43Z"
   },
   "envoy-gateway": {
     "version": "1.9.3",
@@ -118,9 +118,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "kibana": {
-    "version": "9.5.5",
-    "url": "https://github.com/elastic/kibana/releases/tag/v9.5.5",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "9.5.6",
+    "url": "https://github.com/elastic/kibana/releases/tag/v9.5.6",
+    "updated_at": "2026-11-02T19:08:43Z"
   },
   "kube-state-metrics": {
     "version": "2.20.0",
