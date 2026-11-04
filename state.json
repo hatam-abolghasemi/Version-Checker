@@ -1,8 +1,8 @@
 {
   "argocd": {
-    "version": "3.6.0",
-    "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.6.0",
-    "updated_at": "2026-11-04T02:19:37Z"
+    "version": "3.6.1",
+    "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.6.1",
+    "updated_at": "2026-11-04T17:31:51Z"
   },
   "beats": {
     "version": "9.5.6",
