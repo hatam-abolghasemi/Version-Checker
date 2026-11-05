@@ -113,9 +113,9 @@
     "url": "https://github.com/acassen/keepalived/releases/tag/v2.4.3"
   },
   "keycloak": {
-    "version": "26.8.1",
-    "url": "https://github.com/keycloak/keycloak/releases/tag/26.8.1",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "26.8.2",
+    "url": "https://github.com/keycloak/keycloak/releases/tag/26.8.2",
+    "updated_at": "2026-11-05T18:30:25Z"
   },
   "kibana": {
     "version": "9.5.6",
@@ -178,9 +178,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "prometheus": {
-    "version": "3.15.1",
-    "url": "https://github.com/prometheus/prometheus/releases/tag/v3.15.1",
-    "updated_at": "2026-10-21T17:26:39Z"
+    "version": "3.16.0",
+    "url": "https://github.com/prometheus/prometheus/releases/tag/v3.16.0",
+    "updated_at": "2026-11-05T18:30:25Z"
   },
   "proxmox": {
     "version": "9.2-1",
