@@ -197,9 +197,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "rocketchat": {
-    "version": "8.9.0",
-    "url": "https://github.com/RocketChat/Rocket.Chat/releases/tag/8.9.0",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "8.9.1",
+    "url": "https://github.com/RocketChat/Rocket.Chat/releases/tag/8.9.1",
+    "updated_at": "2026-11-06T04:58:31Z"
   },
   "sentry": {
     "version": "26.10.1",
