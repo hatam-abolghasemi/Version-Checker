@@ -75,9 +75,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "gitlab-runner": {
-    "version": "19.3.1",
-    "url": "https://github.com/gitlabhq/gitlab-runner/releases/tag/v19.3.1",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "19.5.3",
+    "url": "https://github.com/gitlabhq/gitlab-runner/releases/tag/v19.5.3",
+    "updated_at": "2026-11-09T19:11:29Z"
   },
   "go": {
     "version": "1.27.3",
@@ -105,9 +105,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "istio": {
-    "version": "1.31.4",
-    "url": "https://github.com/istio/istio/releases/tag/1.31.4",
-    "updated_at": "2026-11-06T19:49:46Z"
+    "version": "1.32.0",
+    "url": "https://github.com/istio/istio/releases/tag/1.32.0",
+    "updated_at": "2026-11-09T19:11:29Z"
   },
   "keepalived": {
     "version": "2.4.3",
