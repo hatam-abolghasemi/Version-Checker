@@ -60,9 +60,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "fluent-bit": {
-    "version": "5.1.5",
-    "url": "https://github.com/fluent/fluent-bit/releases/tag/v5.1.5",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "5.2.0",
+    "url": "https://github.com/fluent/fluent-bit/releases/tag/v5.2.0",
+    "updated_at": "2026-11-09T08:41:41Z"
   },
   "gateway-api": {
     "version": "1.7.0",
@@ -95,8 +95,9 @@
     "updated_at": "2026-10-14T17:27:31Z"
   },
   "harbor": {
-    "version": "2.15.4",
-    "url": "https://github.com/goharbor/harbor/releases/tag/v2.15.4"
+    "version": "2.16.0",
+    "url": "https://github.com/goharbor/harbor/releases/tag/v2.16.0",
+    "updated_at": "2026-11-09T08:41:41Z"
   },
   "helm": {
     "version": "4.3.1",
