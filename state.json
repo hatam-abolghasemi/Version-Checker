@@ -85,9 +85,9 @@
     "updated_at": "2026-11-10T17:27:43Z"
   },
   "grafana": {
-    "version": "13.3.0",
-    "url": "https://github.com/grafana/grafana/releases/tag/v13.3.0",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "13.3.1",
+    "url": "https://github.com/grafana/grafana/releases/tag/v13.3.1",
+    "updated_at": "2026-11-10T22:29:04Z"
   },
   "haproxy": {
     "version": "3.4.7",
