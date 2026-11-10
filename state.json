@@ -40,9 +40,9 @@
     "updated_at": "2026-11-04T02:19:37Z"
   },
   "dotnet": {
-    "version": "10.0.14",
-    "url": "https://github.com/dotnet/runtime/releases/tag/v10.0.14",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "11.0.0",
+    "url": "https://github.com/dotnet/runtime/releases/tag/v11.0.0",
+    "updated_at": "2026-11-10T17:27:43Z"
   },
   "elasticsearch": {
     "version": "9.5.6",
@@ -80,9 +80,9 @@
     "updated_at": "2026-11-09T19:11:29Z"
   },
   "go": {
-    "version": "1.27.3",
-    "url": "https://github.com/golang/go/releases/tag/go1.27.3",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "1.27.4",
+    "url": "https://github.com/golang/go/releases/tag/go1.27.4",
+    "updated_at": "2026-11-10T17:27:43Z"
   },
   "grafana": {
     "version": "13.3.0",
@@ -198,9 +198,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "rocketchat": {
-    "version": "8.9.1",
-    "url": "https://github.com/RocketChat/Rocket.Chat/releases/tag/8.9.1",
-    "updated_at": "2026-11-06T04:58:31Z"
+    "version": "9.0.0",
+    "url": "https://github.com/RocketChat/Rocket.Chat/releases/tag/9.0.0",
+    "updated_at": "2026-11-10T17:27:43Z"
   },
   "sentry": {
     "version": "26.10.1",
