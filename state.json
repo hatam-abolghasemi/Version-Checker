@@ -164,9 +164,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "nodejs": {
-    "version": "26.13.0",
-    "url": "https://github.com/nodejs/node/releases/tag/v26.13.0",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "26.13.1",
+    "url": "https://github.com/nodejs/node/releases/tag/v26.13.1",
+    "updated_at": "2026-11-11T17:20:55Z"
   },
   "openresty": {
     "version": "1.31.8.1",
