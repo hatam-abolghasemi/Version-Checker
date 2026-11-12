@@ -139,9 +139,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "kyverno": {
-    "version": "1.19.2",
-    "url": "https://github.com/kyverno/kyverno/releases/tag/v1.19.2",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "1.20.0",
+    "url": "https://github.com/kyverno/kyverno/releases/tag/v1.20.0",
+    "updated_at": "2026-11-12T13:03:45Z"
   },
   "metrics-server": {
     "version": "0.9.1",
