@@ -35,9 +35,9 @@
     "updated_at": "2026-10-21T06:37:53Z"
   },
   "docker": {
-    "version": "29.9.3",
-    "url": "https://github.com/moby/moby/releases/tag/docker-v29.9.3",
-    "updated_at": "2026-11-04T02:19:37Z"
+    "version": "29.10.0",
+    "url": "https://github.com/moby/moby/releases/tag/docker-v29.10.0",
+    "updated_at": "2026-11-16T21:11:10Z"
   },
   "dotnet": {
     "version": "11.0.0",
@@ -188,9 +188,9 @@
     "url": "https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso#:~:text=9.2%2D1"
   },
   "rabbitmq": {
-    "version": "4.4.0",
-    "url": "https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.4.0",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "4.4.1",
+    "url": "https://github.com/rabbitmq/rabbitmq-server/releases/tag/v4.4.1",
+    "updated_at": "2026-11-16T21:11:10Z"
   },
   "redis": {
     "version": "8.10.3",
