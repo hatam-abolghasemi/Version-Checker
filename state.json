@@ -149,9 +149,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "mimir": {
-    "version": "3.2.5",
-    "url": "https://github.com/grafana/mimir/releases/tag/mimir-3.2.5",
-    "updated_at": "2026-11-13T08:46:39Z"
+    "version": "3.2.6",
+    "url": "https://github.com/grafana/mimir/releases/tag/mimir-3.2.6",
+    "updated_at": "2026-11-18T11:39:00Z"
   },
   "nexus": {
     "version": "3.98.1-01",
