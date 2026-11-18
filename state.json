@@ -90,9 +90,9 @@
     "updated_at": "2026-11-10T22:29:04Z"
   },
   "haproxy": {
-    "version": "3.4.7",
-    "url": "https://www.haproxy.org/#:~:text=3.4.7",
-    "updated_at": "2026-10-14T17:27:31Z"
+    "version": "3.4.8",
+    "url": "https://www.haproxy.org/#:~:text=3.4.8",
+    "updated_at": "2026-11-18T19:36:33Z"
   },
   "harbor": {
     "version": "2.16.0",
@@ -159,9 +159,9 @@
     "updated_at": "2026-11-05T23:50:36Z"
   },
   "node-exporter": {
-    "version": "1.12.1",
-    "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.12.1",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "1.13.0",
+    "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.13.0",
+    "updated_at": "2026-11-18T19:36:33Z"
   },
   "nodejs": {
     "version": "26.13.1",
