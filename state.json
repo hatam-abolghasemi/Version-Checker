@@ -159,9 +159,9 @@
     "updated_at": "2026-11-05T23:50:36Z"
   },
   "node-exporter": {
-    "version": "1.13.0",
-    "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.13.0",
-    "updated_at": "2026-11-18T19:36:33Z"
+    "version": "1.13.1",
+    "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.13.1",
+    "updated_at": "2026-11-20T00:51:03Z"
   },
   "nodejs": {
     "version": "26.13.1",
