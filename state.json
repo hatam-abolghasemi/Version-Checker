@@ -169,9 +169,9 @@
     "updated_at": "2026-11-11T17:20:55Z"
   },
   "openresty": {
-    "version": "1.31.8.1",
-    "url": "https://github.com/openresty/openresty/releases/tag/v1.31.8.1",
-    "updated_at": "2026-10-30T13:18:12Z"
+    "version": "1.31.9.1",
+    "url": "https://github.com/openresty/openresty/releases/tag/v1.31.9.1",
+    "updated_at": "2026-11-23T09:01:51Z"
   },
   "php": {
     "version": "8.6.0",
