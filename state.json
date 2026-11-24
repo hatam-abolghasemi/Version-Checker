@@ -75,9 +75,9 @@
     "updated_at": "2026-10-30T13:18:12Z"
   },
   "gitlab-runner": {
-    "version": "19.6.0",
-    "url": "https://github.com/gitlabhq/gitlab-runner/releases/tag/v19.6.0",
-    "updated_at": "2026-11-19T18:28:55Z"
+    "version": "19.6.1",
+    "url": "https://github.com/gitlabhq/gitlab-runner/releases/tag/v19.6.1",
+    "updated_at": "2026-11-24T16:07:44Z"
   },
   "go": {
     "version": "1.27.4",
