@@ -60,9 +60,9 @@
     "updated_at": "2026-11-19T01:29:50Z"
   },
   "fluent-bit": {
-    "version": "5.2.0",
-    "url": "https://github.com/fluent/fluent-bit/releases/tag/v5.2.0",
-    "updated_at": "2026-11-09T08:41:41Z"
+    "version": "5.2.1",
+    "url": "https://github.com/fluent/fluent-bit/releases/tag/v5.2.1",
+    "updated_at": "2026-11-25T09:13:14Z"
   },
   "gateway-api": {
     "version": "1.7.0",
