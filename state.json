@@ -90,9 +90,9 @@
     "updated_at": "2026-11-25T00:42:42Z"
   },
   "haproxy": {
-    "version": "3.4.8",
-    "url": "https://www.haproxy.org/#:~:text=3.4.8",
-    "updated_at": "2026-11-18T19:36:33Z"
+    "version": "3.4.9",
+    "url": "https://www.haproxy.org/#:~:text=3.4.9",
+    "updated_at": "2026-11-26T20:22:32Z"
   },
   "harbor": {
     "version": "2.16.0",
